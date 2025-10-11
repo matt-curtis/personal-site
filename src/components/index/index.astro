@@ -1,0 +1,160 @@
+---
+import CSSSVGVariable from './css-svg-variable.astro';
+
+import ULLIDots from './assets/ul-li-dots.svg.astro';
+import UnderlineSVG from './assets/underline.svg.astro';
+import BunchOfOtherStuff from './assets/bunch-of-other-stuff.svg.astro';
+import BottomOfPage from './assets/bottom-of-page.svg.astro';
+import VisitLinkPatternSVG from './assets/visit-link-pattern.svg.astro';
+
+import StarkIcon from './articles/stark.svg.astro';
+import HyphenIcon from './articles/hyphen.svg.astro';
+import ZemelIcon from './articles/zemel.svg.astro';
+import UnsleptIcon from './articles/unslept.svg.astro';
+import FluidIcon from './articles/fluid.svg.astro';
+
+import Header from './header.astro';
+import * as InlineSVGTextWave from './inline-svg-text/waving/constants.ts';
+import * as DrawnText from './drawn-text.tsx';
+import { AstroAdaptedArticle as Article } from './article/index.tsx';
+
+import * as StarkArticle from './articles/stark.md';
+import * as FluidArticle from './articles/fluid.md';
+import * as HyphenArticle from './articles/hyphen.md';
+import * as UnsleptArticle from './articles/unslept.md';
+import * as ZemelArticle from './articles/zemel.md';
+
+import './style.css';
+import type TLDR from './tldr';
+---
+
+<html lang="en">
+    <head>
+        <!-- TODO: opengraph -->
+        <!-- TODO: favicons -->
+        <!-- TODO: analytics -->
+        
+        <meta charset="utf-8" />
+        
+        <title>Matt Curtis</title>
+        
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+
+        <CSSSVGVariable name="ul-li-dot">
+            <ULLIDots alt={false} color="#FF079C" />
+        </CSSSVGVariable>
+
+        <CSSSVGVariable name="ul-li-dot-alt">
+            <ULLIDots alt={true} color="#FF079C" />
+        </CSSSVGVariable>
+
+        <CSSSVGVariable name="underline-image">
+            <UnderlineSVG color="#FF079C" />
+        </CSSSVGVariable>
+
+        <CSSSVGVariable name="visit-link-pattern-image">
+            <VisitLinkPatternSVG />
+        </CSSSVGVariable>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wdth,wght@0,75,100..900;1,75,100..900&display=swap" rel="stylesheet">
+
+        <script src="./inline-svg-text/waving/mount.ts"></script>
+    </head>
+
+    <body>
+        <Header />
+
+        <p class="lede" {...InlineSVGTextWave.trigger}>
+            <DrawnText.Hi client:load /> I'm Matt. I design and build <DrawnText.Fun client:load />, personable, and purposeful software.
+        </p>
+
+        <p>I've been making things on the internet in some capacity since I was 11 and my parents made their first (big) mistake of leaving me unsupervised near a keyboard and mouse. Eventually I realized they weren't connected to anything, but that's beside the point.</p>
+    
+        <p>Here's a few of the things I've worked on in the past:</p>
+
+        <!-- Stark -->
+
+        <Article
+            client:load
+            tldr={ZemelArticle.frontmatter.tldr}
+            visitLink={{ name: 'getstark.co', href: 'https://getstark.co' }}
+        >
+            <Fragment slot="icon"><StarkIcon /></Fragment>
+            <Fragment slot="summary"><DrawnText.Stark client:load />, where I designed and built <span class="underline">accessibility software</span> used by NASA, Google, and Microsoft</Fragment>
+            <Fragment slot="content"><StarkArticle.Content /></Fragment>
+        </Article>
+
+        <!-- Unslept -->
+
+        <Article
+            client:load
+            tldr={UnsleptArticle.frontmatter.tldr}
+            visitLink={{ name: 'unslept.co', href: 'https://unslept.co' }}
+        >
+            <Fragment slot="icon"><UnsleptIcon /></Fragment>
+            <Fragment slot="summary"><DrawnText.Unslept client:load />, a <span class="underline">music community project</span> for discovering slept-on</Fragment>
+            <Fragment slot="summaryBreak"> Metalcore</Fragment>
+            <Fragment slot="content">
+                <UnsleptArticle.Content />
+            </Fragment>
+        </Article>
+
+        <!-- Fluid -->
+
+        <Article
+            client:load
+            tldr={FluidArticle.frontmatter.tldr}
+            visitLink={{ name: 'Fluid', href: 'https://github.com/matt-curtis/fluid-for-sketch' }}
+        >
+            <Fragment slot="icon"><FluidIcon /></Fragment>
+            <Fragment slot="summary"><DrawnText.Fluid client:load />, the first plugin to add <span class="underline">autolayout to Sketch</span></Fragment>
+            <Fragment slot="content">
+                <FluidArticle.Content />
+            </Fragment>
+        </Article>
+
+        <!-- Hyphen -->
+
+        <Article
+            client:load
+            visitLink={{ name: 'hyphenreader.com', href: 'https://hyphenreader.com' }}
+            tldr={HyphenArticle.frontmatter.tldr}
+        >
+            <Fragment slot="icon"><HyphenIcon /></Fragment>
+            <Fragment slot="summary"><DrawnText.Hyphen client:load />, a customizable <span class="underline">reading app</span> for iPhone & iPad</span></Fragment>
+            <Fragment slot="content">
+                <HyphenArticle.Content />
+            </Fragment>
+        </Article>
+
+        <!-- Zemel -->
+
+        <Article
+            client:load
+            tldr={ZemelArticle.frontmatter.tldr}
+            visitLink={{ name: 'Zemel', href: 'https://github.com/matt-curtis/zemel' }}
+        >
+            <Fragment slot="icon"><ZemelIcon /></Fragment>
+            <Fragment slot="summary"><DrawnText.Zemel client:load />, a library that lets Swift apps <span class="underline">parse XML (like, real fast)</span></Fragment>
+            <Fragment slot="content">
+                <ZemelArticle.Content />
+            </Fragment>
+        </Article>
+
+        <BunchOfOtherStuff color="#FF079C" />
+
+        <p>Working on something interesting, or just want to talk? Get in touch:</p>
+
+        <ul>
+            <li>You can <a href="mailto:matt.curtis.biz@gmail.com">reach me via email</a>,</li>
+            <li>or find me huffing the digital equivalent of glue over on <a href="https://twitter.com/mattxcurtis">twitter.</a></li>
+        </ul>
+
+        <p style={{ 'text-align': 'center' }}>
+            <BottomOfPage color="#FF079C" />
+        </p>
+    </body>
+</html>

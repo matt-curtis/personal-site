@@ -1,0 +1,16 @@
+---
+interface Props {
+
+    name: string;
+
+}
+
+const { name } = Astro.props;
+
+const renderedContent = await Astro.slots.render('default');
+const value = `url("data:image/svg+xml;utf8,${encodeURIComponent(renderedContent)}")`;
+
+const css = `:root { --${name}: ${value} }`;
+---
+
+<style set:html={css} />

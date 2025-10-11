@@ -1,0 +1,28 @@
+---
+import logo from './assets/logo.svg';
+---
+
+<style>
+.page-header {
+    padding-top: 154px; padding-bottom: 76px;
+}
+
+.logo {
+    position: relative;
+    width: 194px; height: 122px;
+
+    .fullsize-logo {
+        position: relative;
+        top: -122px; left: -154px;
+
+        width: 508px; height: 339px;
+    }
+}
+</style>
+
+<header class="page-header">
+    <div class="logo">
+        <!-- TODO: alt text -->
+        <img class="fullsize-logo" src={logo.src} />
+    </div>
+</header>

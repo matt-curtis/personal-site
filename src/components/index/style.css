@@ -1,0 +1,103 @@
+:root {
+    --page-bg: #0E0E0E;
+    --text-color: #FFF;
+    --accent-color: #FF079C;
+    --accent-color-rgb: 255, 7, 156;
+    --interactive-color: #FE82FE;
+
+    --body-font-size: 2rem; /* 32 / 16 */
+    --lede-font-size: 2.5rem;
+    --line-height: 1.5;
+    
+    --space-lg: calc(var(--body-font-size) * 1.5);
+    --space-md: calc(var(--body-font-size) * 0.625);
+    --space-sm: calc(var(--body-font-size) * 0.5);
+
+    --ease-out-back: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+    margin: 0 auto;
+
+    max-width: 936px;
+
+    background: var(--page-bg);
+
+    font-size: var(--body-font-size);
+    color: var(--text-color);
+
+    font-family: "Noto Serif", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    font-variation-settings: "wdth" 75;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    line-height: 1.5;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.lede {
+    font-size: var(--lede-font-size);
+}
+
+details {
+    > summary {
+        cursor: pointer;
+
+        list-style: none;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+    }
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+        padding-left: 1.5em;
+        
+        background-image: var(--ul-li-dot);
+        background-repeat: no-repeat;
+        background-size: 0.75rem;
+        background-position: .5em calc(.6em);
+
+        &:nth-child(even) {
+            background-image: var(--ul-li-dot-alt);
+        }
+    }
+}
+
+.underline {
+    border-image-source: var(--underline-image);
+    border-image-width: 0 0 11px 0;
+    border-image-slice: 11 0;
+    border-image-repeat: stretch;
+    border-image-outset: 4px 0;
+}
+
+a:is(:link, :visited):not(.unstyled-link) {
+    color: var(--accent-color);
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+
+    &:hover {
+        color: var(--interactive-color);
+    }
+}
