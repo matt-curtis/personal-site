@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { prefersReducedMotion } from './prefers-reduced-motion';
 
 export function useDetailsAnimator() {
     const detailsRef = useRef<HTMLDetailsElement>(null);
@@ -41,7 +42,7 @@ export function useDetailsAnimator() {
 
             updateModelStyle();
 
-            if(!isOpen) return;
+            if(!isOpen || prefersReducedMotion()) return;
 
             const easeOutExpoEasing = 'cubic-bezier(0.16, 1, 0.3, 1)';
             

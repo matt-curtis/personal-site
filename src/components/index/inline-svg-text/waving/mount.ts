@@ -11,11 +11,15 @@ triggers.forEach(trigger => {
         });
     };
 
-    trigger.addEventListener('mouseenter', () => {
+    trigger.addEventListener('pointerenter', () => {
         dispatchEventToListeners(Wave.events.start, trigger);
     });
 
-    trigger.addEventListener('mouseleave', () => {
+    trigger.addEventListener('pointerleave', () => {
+        dispatchEventToListeners(Wave.events.end, trigger);
+    });
+
+    trigger.addEventListener('pointercancel', () => {
         dispatchEventToListeners(Wave.events.end, trigger);
     });
 });

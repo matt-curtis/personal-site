@@ -23,6 +23,15 @@
 
     &:hover, &:focus-visible {
         --visit-link-chrome-color: var(--interactive-color);
+
+        @media not (prefers-reduced-motion: reduce) {
+            background-position: 0%, 800px 1000px;
+            transition: background-position 60s linear;
+        }
+
+        .arrow {
+            transform: rotate(4deg) scale(1.025);
+        }
     }
 }
 
@@ -30,16 +39,12 @@
     height: 4.5rem;
     width: 8.125rem;
 
+    object-fit: fill;
+
     background: var(--page-bg);
 
     border: 1px solid var(--visit-link-chrome-color);
     border-radius: 3px;
-}
-
-.label-text {
-    display: flex;
-    align-items: baseline;
-    gap: .5ch;
 }
 
 .arrow {
@@ -47,6 +52,13 @@
 
     top: -1.375rem;
     right: -1.375rem;
+
+    will-change: transform;
+    transform-origin: right bottom;
+
+    transition: transform 300ms var(--ease-out-expo);
+
+    filter: var(--line-boil-filter);
 
     .arrow-path {
         fill: var(--visit-link-chrome-color);

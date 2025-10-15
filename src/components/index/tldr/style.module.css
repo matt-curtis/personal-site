@@ -64,10 +64,5 @@
 
     p:last-of-type {
         margin-block-end: 0;
-        text-box-trim: trim-end;
-    }
-
-    p:first-of-type:last-of-type {
-        text-box-trim: trim-both;
     }
 }

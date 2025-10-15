@@ -1,3 +1,23 @@
+@font-face {
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-weight: 100 900;
+    font-stretch: 75%;
+    font-display: swap;
+    src: url(./noto-serif-condensed-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Noto Serif';
+    font-style: italic;
+    font-weight: 100 900;
+    font-stretch: 75%;
+    font-display: swap;
+    src: url(./noto-serif-condensed-italic-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
     --page-bg: #0E0E0E;
     --text-color: #FFF;
@@ -6,7 +26,7 @@
     --interactive-color: #FE82FE;
 
     --body-font-size: 2rem; /* 32 / 16 */
-    --lede-font-size: 2.5rem;
+    --lede-font-size: calc(var(--body-font-size) * 1.25);
     --line-height: 1.5;
     
     --space-lg: calc(var(--body-font-size) * 1.5);
@@ -15,17 +35,29 @@
 
     --ease-out-back: cubic-bezier(0.68, -0.6, 0.32, 1.6);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --line-boil-filter: url(#line-boil-filter);
+
+    @media screen and (width <= 1000px) {
+        font-size: 0.75rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        --line-boil-filter: none;
+    }
 }
 
 body {
     margin: 0 auto;
+    padding: 0 var(--body-h-padding);
 
     max-width: 936px;
 
     background: var(--page-bg);
 
-    font-size: var(--body-font-size);
     color: var(--text-color);
+
+    font-size: var(--body-font-size);
 
     font-family: "Noto Serif", serif;
     font-optical-sizing: auto;
@@ -37,6 +69,14 @@ body {
     -moz-osx-font-smoothing: grayscale;
 
     line-height: 1.5;
+
+    @media screen and (width <= 1000px) {
+        padding: 0 6rem;
+    }
+
+    @media screen and (width <= 600px) {
+        padding: 0 2rem;
+    }
 }
 
 .sr-only {

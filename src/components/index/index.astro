@@ -1,17 +1,20 @@
 ---
+import { getImage } from 'astro:assets';
+
 import CSSSVGVariable from './css-svg-variable.astro';
 
 import ULLIDots from './assets/ul-li-dots.svg.astro';
 import UnderlineSVG from './assets/underline.svg.astro';
-import BunchOfOtherStuff from './assets/bunch-of-other-stuff.svg.astro';
-import BottomOfPage from './assets/bottom-of-page.svg.astro';
+import { BunchOfOtherStuff } from './assets/bunch-of-other-stuff.svg.tsx';
 import VisitLinkPatternSVG from './assets/visit-link-pattern.svg.astro';
 
-import StarkIcon from './articles/stark.svg.astro';
-import HyphenIcon from './articles/hyphen.svg.astro';
-import ZemelIcon from './articles/zemel.svg.astro';
-import UnsleptIcon from './articles/unslept.svg.astro';
-import FluidIcon from './articles/fluid.svg.astro';
+import { LineBoilFilter } from './line-boil-filter';
+
+import { StarkIcon } from './articles/stark.svg.tsx';
+import { HyphenIcon } from './articles/hyphen.svg.tsx';
+import { ZemelIcon } from './articles/zemel.svg.tsx';
+import { UnsleptIcon } from './articles/unslept.svg.tsx';
+import { FluidIcon } from './articles/fluid.svg.tsx';
 
 import Header from './header.astro';
 import * as InlineSVGTextWave from './inline-svg-text/waving/constants.ts';
@@ -25,22 +28,39 @@ import * as UnsleptArticle from './articles/unslept.md';
 import * as ZemelArticle from './articles/zemel.md';
 
 import './style.css';
-import type TLDR from './tldr';
+
+import starkThumb from './assets/site-thumbs/stark.png';
+import fluidThumb from './assets/site-thumbs/fluid.png';
+import hyphenThumb from './assets/site-thumbs/hyphen.png';
+import unsleptThumb from './assets/site-thumbs/unslept.png';
+import zemelThumb from './assets/site-thumbs/zemel.png';
+import Footer from './footer.astro';
+import GoogleAnalytics from './google-analytics.astro';
+
+const optimizedStarkThumb = await getImage({ src: starkThumb, format: 'webp', width: 400 });
+const optimizedFluidThumb = await getImage({ src: fluidThumb, format: 'webp', width: 400 });
+const optimizedHyphenThumb = await getImage({ src: hyphenThumb, format: 'webp', width: 400 });
+const optimizedUnsleptThumb = await getImage({ src: unsleptThumb, format: 'webp', width: 400 });
+const optimizedZemelThumb = await getImage({ src: zemelThumb, format: 'webp', width: 400 });
 ---
 
 <html lang="en">
     <head>
-        <!-- TODO: opengraph -->
-        <!-- TODO: favicons -->
-        <!-- TODO: analytics -->
+        <GoogleAnalytics />
         
         <meta charset="utf-8" />
         
         <title>Matt Curtis</title>
-        
+
+        <meta property="og:title" content="Matt Curtis" />
+        <meta property="og:description" content="The personal site of Matt Curtis" />
+        <meta property="og:image" content="/og/general.jpg" />
+        <meta property="og:image:alt" content="The words 'Matt Curtis' in white and pink gradient against a black background, surrounded by pink scribbled shapes and words." />
+        <meta property="twitter:image" content="/og/twitter.jpg" />
+
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
-
+        
         <CSSSVGVariable name="ul-li-dot">
             <ULLIDots alt={false} color="#FF079C" />
         </CSSSVGVariable>
@@ -57,14 +77,14 @@ import type TLDR from './tldr';
             <VisitLinkPatternSVG />
         </CSSSVGVariable>
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wdth,wght@0,75,100..900;1,75,100..900&display=swap" rel="stylesheet">
-
         <script src="./inline-svg-text/waving/mount.ts"></script>
     </head>
 
     <body>
+        <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+            <LineBoilFilter id="line-boil-filter" />
+        </svg>
+
         <Header />
 
         <p class="lede" {...InlineSVGTextWave.trigger}>
@@ -79,11 +99,12 @@ import type TLDR from './tldr';
 
         <Article
             client:load
-            tldr={ZemelArticle.frontmatter.tldr}
-            visitLink={{ name: 'getstark.co', href: 'https://getstark.co' }}
+            tldr={StarkArticle.frontmatter.tldr}
+            visitLink={{ name: 'getstark.co', href: 'https://getstark.co', thumbSrc: optimizedStarkThumb.src }}
         >
             <Fragment slot="icon"><StarkIcon /></Fragment>
-            <Fragment slot="summary"><DrawnText.Stark client:load />, where I designed and built <span class="underline">accessibility software</span> used by NASA, Google, and Microsoft</Fragment>
+            <Fragment slot="summary"><DrawnText.Stark client:load />, where I designed and built <span class="underline">accessibility software</span> used by NASA, Google, </Fragment>
+            <Fragment slot="summaryBreak">and Microsoft</Fragment>
             <Fragment slot="content"><StarkArticle.Content /></Fragment>
         </Article>
 
@@ -92,11 +113,11 @@ import type TLDR from './tldr';
         <Article
             client:load
             tldr={UnsleptArticle.frontmatter.tldr}
-            visitLink={{ name: 'unslept.co', href: 'https://unslept.co' }}
+            visitLink={{ name: 'unslept.co', href: 'https://unslept.co', thumbSrc: optimizedUnsleptThumb.src }}
         >
             <Fragment slot="icon"><UnsleptIcon /></Fragment>
-            <Fragment slot="summary"><DrawnText.Unslept client:load />, a <span class="underline">music community project</span> for discovering slept-on</Fragment>
-            <Fragment slot="summaryBreak"> Metalcore</Fragment>
+            <Fragment slot="summary"><DrawnText.Unslept client:load />, a <span class="underline">music community project</span> for discovering slept-on </Fragment>
+            <Fragment slot="summaryBreak">Metalcore</Fragment>
             <Fragment slot="content">
                 <UnsleptArticle.Content />
             </Fragment>
@@ -107,10 +128,11 @@ import type TLDR from './tldr';
         <Article
             client:load
             tldr={FluidArticle.frontmatter.tldr}
-            visitLink={{ name: 'Fluid', href: 'https://github.com/matt-curtis/fluid-for-sketch' }}
+            visitLink={{ name: 'Fluid on producthunt.com', href: 'https://www.producthunt.com/products/fluid-for-sketch?launch=fluid-for-sketch-2', thumbSrc: optimizedFluidThumb.src }}
         >
             <Fragment slot="icon"><FluidIcon /></Fragment>
-            <Fragment slot="summary"><DrawnText.Fluid client:load />, the first plugin to add <span class="underline">autolayout to Sketch</span></Fragment>
+            <Fragment slot="summary"><DrawnText.Fluid client:load />, the first plugin to add </Fragment>
+            <Fragment slot="summaryBreak"><span class="underline">autolayout to Sketch</span></Fragment>
             <Fragment slot="content">
                 <FluidArticle.Content />
             </Fragment>
@@ -120,11 +142,12 @@ import type TLDR from './tldr';
 
         <Article
             client:load
-            visitLink={{ name: 'hyphenreader.com', href: 'https://hyphenreader.com' }}
+            visitLink={{ name: 'hyphenreader.com', href: 'https://hyphenreader.com', thumbSrc: optimizedHyphenThumb.src }}
             tldr={HyphenArticle.frontmatter.tldr}
         >
             <Fragment slot="icon"><HyphenIcon /></Fragment>
-            <Fragment slot="summary"><DrawnText.Hyphen client:load />, a customizable <span class="underline">reading app</span> for iPhone & iPad</span></Fragment>
+            <Fragment slot="summary"><DrawnText.Hyphen client:load />, a customizable <span class="underline">reading app</span>&nbsp;</Fragment>
+            <Fragment slot="summaryBreak">for iPhone & iPad</Fragment>
             <Fragment slot="content">
                 <HyphenArticle.Content />
             </Fragment>
@@ -135,10 +158,11 @@ import type TLDR from './tldr';
         <Article
             client:load
             tldr={ZemelArticle.frontmatter.tldr}
-            visitLink={{ name: 'Zemel', href: 'https://github.com/matt-curtis/zemel' }}
+            visitLink={{ name: 'Zemel on github.com', href: 'https://github.com/matt-curtis/zemel', thumbSrc: optimizedZemelThumb.src }}
         >
             <Fragment slot="icon"><ZemelIcon /></Fragment>
-            <Fragment slot="summary"><DrawnText.Zemel client:load />, a library that lets Swift apps <span class="underline">parse XML (like, real fast)</span></Fragment>
+            <Fragment slot="summary"><DrawnText.Zemel client:load />, a library that lets Swift apps <span class="underline">parse XML &nbsp;</span></Fragment>
+            <Fragment slot="summaryBreak">(like, real fast)</Fragment>
             <Fragment slot="content">
                 <ZemelArticle.Content />
             </Fragment>
@@ -153,8 +177,6 @@ import type TLDR from './tldr';
             <li>or find me huffing the digital equivalent of glue over on <a href="https://twitter.com/mattxcurtis">twitter.</a></li>
         </ul>
 
-        <p style={{ 'text-align': 'center' }}>
-            <BottomOfPage color="#FF079C" />
-        </p>
+        <Footer />
     </body>
 </html>

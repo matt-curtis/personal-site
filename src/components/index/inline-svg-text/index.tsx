@@ -1,20 +1,22 @@
 import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import * as Wave from './waving/constants';
+import { usePrefersReducedMotion } from '../prefers-reduced-motion';
 
-const wave = {
-    offset: 6,
-    scale: 0.9,
+function getWaveConstants(reducedMotion: boolean) {
+    return {
+        offset: reducedMotion ? '0.05em' : '0.14em',
+        scale: reducedMotion ? 0.95 : 0.88,
 
-    brightness: 1,
-    color: 'var(--interactive-color)',
-    glow: {
-        color: 'var(--accent-color)',
-        radius: 10
-    },
+        color: 'var(--interactive-color)',
+        glow: {
+            color: 'var(--accent-color)',
+            radius: 10
+        },
 
-    duration: 1000,
-    delay: 100,
-    easing: 'ease-in-out'
+        duration: reducedMotion ? 1250 : 1000,
+        delay: 100,
+        easing: 'ease-in-out'
+    };
 };
 
 interface TextProps {
@@ -24,10 +26,12 @@ interface TextProps {
     height: number;
     baseline: number;
     paths: string[];
+    shouldLoopAnimation?: boolean;
 
 };
 
 export function Text(props: TextProps) {
+    const shouldLoopAnimation = props.shouldLoopAnimation ?? false;
     const elRef = useRef<HTMLElement>(null);
 
     const style: React.CSSProperties = {
@@ -77,11 +81,12 @@ export function Text(props: TextProps) {
 
                 const shouldStop = () => animationIndexIsMin(i) && signal.aborted;
 
-                while(!shouldStop()) {
+                do {
                     await ref.current?.animate(shouldDelay);
 
                     shouldDelay = false;
                 }
+                while(shouldLoopAnimation && !shouldStop());
 
                 activeAnimationIndexes.delete(i);
             });
@@ -96,9 +101,10 @@ export function Text(props: TextProps) {
 
             isWaving = true;
             
-            while(!abortController.signal.aborted){
+            do {
                 await wavePaths(abortController);
             }
+            while(shouldLoopAnimation && !abortController.signal.aborted);
 
             isWaving = false;
         };
@@ -139,6 +145,9 @@ function Path(props: PathProps) {
     const svgElRef = useRef<SVGSVGElement | null>(null);
     const peakElRef = useRef<SVGSVGElement | null>(null);
 
+    const prefersReducedMotion = usePrefersReducedMotion();
+    const wave = getWaveConstants(prefersReducedMotion);
+
     useImperativeHandle(props.ref, () => {
         return {
             async animate(shouldDelay: boolean) {
@@ -168,17 +177,14 @@ function Path(props: PathProps) {
                 );
             }
         };
-    }, []);
+    }, [ prefersReducedMotion ]);
 
     const waveTransform = `
-        translateY(${wave.offset}px)
+        translateY(${wave.offset})
         scaleY(${wave.scale})
     `;
-        
-    const waveGlowFilter = `
-        drop-shadow(0 0 ${wave.glow.radius}px ${wave.glow.color})
-        brightness(${wave.brightness})
-    `;
+    
+    const waveGlowFilter = `drop-shadow(0 0 ${wave.glow.radius}px ${wave.glow.color})`;
 
     const svgStyle: React.CSSProperties = {
         position: 'absolute',

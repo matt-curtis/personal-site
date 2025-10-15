@@ -1,0 +1,7 @@
+.container {
+    position: relative;
+
+    .fullsize {
+        position: absolute;
+    }
+}

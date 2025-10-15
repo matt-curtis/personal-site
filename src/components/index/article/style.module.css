@@ -11,11 +11,26 @@
 .summary {
     position: relative;
 
+    @media screen and (width < 1200px) {
+        display: flex;
+        align-items: center;
+    }
+
     .icon {
-        position: absolute;
-        top: 50%;
+        display: flex;
+        height: 0;
+        align-items: center;
+
         padding-right: 0.75rem;
-        transform: translate(-100%, -50%);
+
+        filter: var(--line-boil-filter);
+        
+        @media screen and (width >= 1200px) {
+            position: absolute;
+            top: 50%;
+            
+            transform: translate(-100%, -50%);
+        }
     }
 
     .disclosure-indicator-container {
@@ -23,7 +38,7 @@
         display: inline-block;
 
         height: 1em;
-        padding-left: 1ch;
+        padding-left: 2ch;
     }
 
     .disclosure-indicator {
@@ -32,6 +47,8 @@
 
         transform-origin: center;
         transition: transform 350ms var(--ease-out-back);
+
+        filter: var(--line-boil-filter);
 
         .disclosure-indicator-path {
             fill: var(--accent-color);
@@ -51,11 +68,11 @@
 
 .content {
     margin-top: var(--space-lg);
-}
 
-.interactive-stack {
-    display: block;
-    flex-direction: column;
+    .interactive-stack {
+        display: flex;
+        flex-direction: column;
 
-    gap: var(--space-sm);
+        gap: calc(var(--space-sm) * 2);
+    }
 }
