@@ -6,6 +6,5 @@ import react from '@astrojs/react';
 
 export default defineConfig({
     integrations: [ react() ],
-    site: 'https://matt-curtis.github.io',
-    base: '/personal-site',
+    site: 'https://mattcurtis.me',
 });
