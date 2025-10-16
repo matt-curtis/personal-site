@@ -2,7 +2,7 @@
 tldr: "Once a week a buddy and I would trek for many, many long miles and gather around The Orb. We'd ask \"Oh Orb, what's being Slept on?\" and The Orb would reply. The Orb would supply. And with what the Orb supplied, we'd supply you."
 ---
 
-I built UNSLEPT with a buddy of mine, [Tregg](https://tre.gg/). Who, by the way, happens to be one of my favorite people, a great dad, product designer and person in general.)
+I built UNSLEPT with a buddy of mine, [Tregg](https://tre.gg/). (Who, by the way, happens to be one of my favorite people, a great dad, product designer and person in general.)
 
 While "What if there was a book club, except instead of books... it was metalcore?" sounds like the sort of question someone asks in a sketchy college dorm room after smoking ungodly amounts of weed, it _did_ form the premise of UNSLEPT. (Yeah we spelled that in _all caps_, baby. It was edgier that way. Also, sorry, I can't promise no weed was involved.)
 

@@ -14,7 +14,7 @@ In the pursuit of the answer, I did stuff like:
 
 - build our core accessibility engine that quickly finds and suggests solutions to issues in design files. (This engine powered 1000s of accessibility audits a day at companies like NASA, Google, and Microsoft. Did I say those names already?)
 
-- co-lead the development of one of Stark for Mac. Stark for Mac was built with 100% free-range SwiftUI at a time when there were few other apps doing that, which meant that if you found a bug, or tried to do something slightly unusual you were exactly what we'll all be when we die: alone.\
+- co-lead the development of Stark for Mac. Stark for Mac was built with 100% free-range SwiftUI at a time when there were few other apps doing that, which meant that if you found a bug, or tried to do something slightly unusual you were exactly what we'll all be when we die: alone.\
 \
 That got darker than I meant for it to be, but you get the idea.\
 \
